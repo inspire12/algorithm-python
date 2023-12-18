@@ -11,7 +11,7 @@ def solve_simple_bags(n, k, bags):
             weight = bags[i][0]
             value = bags[i][1]
             if upper_weight < weight:
-                knapsack[i][upper_weight] = knapsack[i - 1][j]
+                knapsack[i][upper_weight] = knapsack[i - 1][upper_weight]
             else:
                 knapsack[i][upper_weight] = max(value + knapsack[i - 1][upper_weight - weight], knapsack[i - 1][upper_weight])
                 m = max(m, knapsack[i][upper_weight])
