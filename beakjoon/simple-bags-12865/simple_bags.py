@@ -7,15 +7,15 @@ def solve_simple_bags(n, k, bags):
     bags.sort(key=lambda a: a[0])
     m = 0
     for i in range(n + 1):
-        for j in range(i, k + 1):
+        for upper_weight in range(i, k + 1):
             weight = bags[i][0]
             value = bags[i][1]
-            if j < weight:
-                knapsack[i][j] = knapsack[i - 1][j]
+            if upper_weight < weight:
+                knapsack[i][upper_weight] = knapsack[i - 1][j]
             else:
-                knapsack[i][j] = max(value + knapsack[i - 1][j - weight], knapsack[i - 1][j])
-                m = max(m, knapsack[i][j])
-    print(m)
+                knapsack[i][upper_weight] = max(value + knapsack[i - 1][upper_weight - weight], knapsack[i - 1][upper_weight])
+                m = max(m, knapsack[i][upper_weight])
+    return m
 
 
 if __name__ == '__main__':
@@ -26,5 +26,6 @@ if __name__ == '__main__':
         a, b = map(int, sys.stdin.readline().split())
         l.append((a, b))
 
-    solve_simple_bags(n, k, l)
+    m = solve_simple_bags(n, k, l)
+    print(m)
     # 점화식 (n + i) = (n) + k
