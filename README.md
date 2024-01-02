@@ -3,7 +3,8 @@
 
 # Greedy
 ## Knapsack bags
-Hint n차원으로 체크하는 생각
+Hint 점화식을 세워 코딩하는 생각
+- [모음](https://www.acmicpc.net/problemset?sort=ac_desc&algo=148)
 - [12865](https://www.acmicpc.net/problem/12865)
 
 # Sort  
