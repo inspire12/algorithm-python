@@ -1,13 +1,14 @@
+'''
+    제목:
+    출처:
+    idea:
+    난이도: [Easy | Medium | Hard | Expert]
+'''
+
 import sys
 import unittest
 
 
-'''
-제목:
-출처:
-idea:
-난이도: 
-'''
 def input_template():
     a, b, c = map(int, sys.stdin.readline().split())
     pass

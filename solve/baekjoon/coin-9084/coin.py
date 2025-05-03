@@ -3,7 +3,7 @@ from unittest import TestCase
 
 '''
     제목:
-    출처:
+    출처: https://www.acmicpc.net/problem/9084
     idea:
     난이도: 
 '''

@@ -34,7 +34,3 @@ class MyTestCase(unittest.TestCase):
         input = 'zbzbz'
         answer = 'bz'
         self.assertEqual(solution(input), answer)  # add assertion here
-
-
-if __name__ == '__main__':
-    unittest.main()
