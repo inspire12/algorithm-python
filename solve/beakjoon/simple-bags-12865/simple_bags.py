@@ -1,4 +1,5 @@
 import sys
+from unittest import TestCase
 
 
 def solve_simple_bags(n, k, bags):
@@ -29,3 +30,15 @@ if __name__ == '__main__':
     m = solve_simple_bags(n, k, l)
     print(m)
     # 점화식 (n + i) = (n) + k
+
+
+class Test(TestCase):
+
+    def test_solve(self):
+        n, k = 4, 7
+        bags = [(6, 13),
+                (4, 8),
+                (3, 6),
+                (5, 12)]
+        value = solve_simple_bags(n, k, bags)
+        self.assertEqual(value, 14)
