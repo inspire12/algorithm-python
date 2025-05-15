@@ -1,7 +1,7 @@
 #!/bin/bash
 
 default_platform="baekjoon"
-default_level="Easy"
+default_level="easy"
 
 echo "🧑‍💻 알고리즘 문제 파일 생성기 🧑‍💻"
 
@@ -12,7 +12,7 @@ platform=${platform:-$default_platform}
 read -p "제목: " title
 read -p "번호 or 출처: " source_input
 read -p "풀이 아이디어: " idea
-read -p "난이도(Easy/Medium/Hard/Expert) [${default_level}]: " level
+read -p "난이도(easy/medium/hard/expert) [${default_level}]: " level
 level=${level:-$default_level}
 
 # 출처 자동 처리
@@ -44,9 +44,8 @@ cat << EOF > solve/$platform/$filename.py
 idea: $idea
 난이도: $level
 '''
-
-import sys
 import unittest
+import sys
 
 def solution(a):
     return a
@@ -57,9 +56,9 @@ if __name__ == '__main__':
 
 class TestSolution(unittest.TestCase):
     def test_example_1(self):
-        input = None
+        input_string = None
         expected = None
-        self.assertEqual(solution(input), expected)
+        self.assertEqual(expected, solution(input_string))
 
 EOF
 
