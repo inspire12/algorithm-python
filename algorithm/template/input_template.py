@@ -1,8 +1,6 @@
 import sys
 import unittest
 
-
-
 def input_template():
     a, b, c = map(int, sys.stdin.readline().split())
 
