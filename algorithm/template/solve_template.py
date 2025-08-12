@@ -8,7 +8,6 @@
 import sys
 import unittest
 
-
 def input_template():
     a, b, c = map(int, sys.stdin.readline().split())
     pass
@@ -22,7 +21,7 @@ if __name__ == '__main__':
     m = solve(a)
     print(m)
 
-
+import unittest
 class MyTestCase(unittest.TestCase):
     def test_something_1(self):
         input = 'edeaaabbccd'
