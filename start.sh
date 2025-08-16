@@ -35,16 +35,17 @@ else
   source="$source_input"
 fi
 
-# 디렉터리 생성 및 파일 작성
-mkdir -p solve/$platform
-cat << EOF > solve/$platform/$filename.py
+
+
+# 디렉터리 생성 및 기본 파일 작성
+mkdir -p tried/$platform
+cat << EOF > tried/$platform/$filename.py
 '''
 제목: $title
 출처: $source
 idea: $idea
 난이도: $level
 '''
-import unittest
 import sys
 
 def solution(a):
@@ -54,12 +55,35 @@ if __name__ == '__main__':
     a = map(int, sys.stdin.readline().split())
     print(solution(a))
 
-class TestSolution(unittest.TestCase):
-    def test_example_1(self):
-        input_string = None
-        expected = None
-        self.assertEqual(expected, solution(input_string))
 
 EOF
 
-echo "✅ 'solve/$platform/$filename.py' 생성 완료!"
+# 플랫폼별 테스트 코드 생성
+if [ "$platform" = "baekjoon" ]; then
+cat << EOF >> tried/$platform/${filename}.py
+import io
+import unittest
+import sys
+
+class TestSolution(unittest.TestCase):
+    def test_example_1(self):
+        test_input = ""
+        expected_output = ""
+        sys.stdin = io.StringIO(test_input)
+        sys.stdout = io.StringIO()
+        main()
+        self.assertEqual(sys.stdout.getvalue(), expected_output)
+EOF
+else
+cat << EOF >> tried/$platform/${filename}.py
+import unittest
+
+class TestSolution(unittest.TestCase):
+    def test_example_1(self):
+        input_data = None
+        expected = None
+        self.assertEqual(solution(input_data), expected)
+EOF
+fi
+
+echo "✅ 'tried/$platform/$filename.py'와 테스트 파일 생성 완료!"

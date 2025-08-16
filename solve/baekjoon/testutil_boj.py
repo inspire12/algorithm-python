@@ -40,7 +40,7 @@ def assertIO(testcase, main_func, input_text: str, expected_text: str, strict=Tr
 
 import io
 import unittest
-# from solve.baekjoon.testutil_boj import dedent_trim
+# from tried.baekjoon.testutil_boj import dedent_trim
 class TestSolution(unittest.TestCase):
     def test_1(self):
         test_input = dedent_trim('''
