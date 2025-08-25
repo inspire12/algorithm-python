@@ -62,5 +62,5 @@ class TestSolution(unittest.TestCase):
 
         sys.stdin = io.StringIO(test_input)
         sys.stdout = io.StringIO()
-        # main()
+        main()
         self.assertEqual(sys.stdout.getvalue(), expected_output)
