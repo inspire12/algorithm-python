@@ -1288,6 +1288,15 @@ start = 2: [1]
 
 ---
 
+<a id="subset-candidate-count"></a>
+### 2026-10-16 부분집합 후보 개수와 계약 재확인
+
+- 문제: [Partition Equal Subset Sum / LeetCode 416](https://leetcode.com/problems/partition-equal-subset-sum/)
+- 잘못된 판단: 각 원소의 선택/미선택 후보를 N개로 답하고 홀수 전체 합도 같은 합으로 분할할 수 있다고 답했다.
+- 반례: 원소가 3개면 선택 마스크는 000부터 111까지 8개다. [1,2]의 합 3은 정수인 같은 두 합으로 나눌 수 없다.
+- 교정: 각 원소마다 두 선택이므로 후보는 2^N이다. 두 합이 각각 S이면 전체 합은 2*S이므로 짝수여야 한다. 재귀 상태는 처리한 원소 수와 지금까지 선택한 합을 구분한다.
+- 재확인: 2026-10-17. 설명 제공 후 독립 재확인은 아직 하지 않았다.
+
 <a id="mistake-27"></a>
 
 ## 27. `정확히 K`를 단조로운 `최대 K` 조건으로 변환하지 못함
@@ -1526,3 +1535,15 @@ Course Schedule에서는 큐에 남은 선수 조건이 `0`인 과목만 들어 
 | 2026-08-26 | [Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/) | 27 | `DESIGN` | `P1` | [ ] | 2026-08-28 / 2026-09-02 |
 | 2026-09-01 | [Number of Islands](https://leetcode.com/problems/number-of-islands/) | 28 | `BOUNDARY` | `P0` | [ ] | 2026-09-03 / 2026-09-08 |
 | 2026-09-02 | [Course Schedule](https://leetcode.com/problems/course-schedule/) | 29 | `DS` | `P1` | [ ] | 2026-09-04 / 2026-09-09 |
+
+
+<a id="dp-state-reuse"></a>
+## 30. DP 상태·초기값·갱신 단계와 원소 사용 횟수를 연결하지 못함
+
+- 기록: 2026-10-16 (10월 15일 학습 정리)
+- 문제: [Coin Change / LeetCode 322](https://leetcode.com/problems/coin-change/), [Coin Change II / LeetCode 518](https://leetcode.com/problems/coin-change-ii/), [Partition Equal Subset Sum / LeetCode 416](https://leetcode.com/problems/partition-equal-subset-sum/)
+- 잘못된 판단: 금액 DP를 동전 종류 수 크기로 만들거나 모든 상태를 0으로 초기화했다. 조합 DP에서 dp[coin]=1과 분리된 반복문을 사용했고, 0/1 선택에서도 오름차순 갱신에 재사용 문제가 없다고 판단했다.
+- 반례: 322에서 coins=[2], amount=3은 불가능이다. 518에서 coins=[5], amount=3이면 dp[coin] 접근이 범위를 넘는다. 분리된 반복문은 마지막 coin만 사용하며 음수 인덱스도 발생한다. 416에서 [2,6]의 목표 4를 오름차순으로 처리하면 2를 두 번 사용한 잘못된 True가 생긴다.
+- 교정할 불변식: 최소 개수는 dp[0]=0과 나머지 무한대, 조합 수는 dp[0]=1과 나머지 0이다. 조합에서는 현재까지 허용한 동전 종류로 만드는 방법을 센다. 원소를 한 번만 쓸 때는 이번 원소 처리 전 상태만 참조한다. 처음에는 이전/새 집합을 분리하고 이후 역방향 갱신으로 압축한다.
+- 확인 근거: 322는 안내 후 직접 작성한 코드가 맞았고 사용자가 제출 통과를 보고했다. 518 수정 구현과 416 구현은 미확인이다.
+- 재확인: 2026-10-17에 416의 이전 합 집합에서 새 합을 생성하는 원리를 재개한다. 2026-10-18에 322·518 초기값과 반복 순서를 재현한다.
