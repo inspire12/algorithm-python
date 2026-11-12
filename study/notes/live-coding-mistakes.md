@@ -976,6 +976,28 @@ stack: 마지막 값 추가·제거 → list
 
 ---
 
+### 2026-11-10 Longest Consecutive Sequence에서 정수에 멤버십 검사
+
+- 문제: [LeetCode 128 — Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+- 반례: `0 in 1`은 TypeError, `0 in {1}`은 False다.
+- 잘못된 구현: `in numbers` 대신 `in number`를 사용했다. 사용자가 원인을 확인하고 전체 코드에서 수정했다.
+- 교정할 불변식: `numbers`는 고정된 정수 집합이고 `number`는 순회 중인 정수 하나다. 존재 여부 검사의 오른쪽에는 집합을 둔다.
+- 재확인: 2026-11-13 독립 재구현에서 변수 타입과 멤버십 검사 대상을 확인한다.
+
+### 2026-11-11 Group Anagrams의 생성 함수·키 타입·반환값
+
+- 문제: [LeetCode 49 — Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+- 반례: `defaultdict(["eat"])`은 callable 오류, `{["a", "e", "t"]: []}`는 unhashable 오류다. `list({"aet": ["eat"]})`은 그룹 대신 키를 반환한다.
+- 교정: 기본값 생성 함수는 `list`, 키는 정렬 결과를 join한 문자열, 반환은 `list(groups.values())`다. 각 키의 리스트에는 해당 키로 정렬되는 원래 단어만 보존한다.
+- 재확인: 2026-11-15 독립 재구현에서 세 API를 확인한다.
+
+### 2026-11-12 Top K Frequent Elements의 정렬과 슬라이스
+
+- 문제: [LeetCode 347 — Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+- 반례: `[3,0,1,0]`, k=1에서 `list(freq)[1]`은 정수 0을 반환하며 요구된 `[0]`이 아니다. `sorted(freq)`는 빈도순 정렬이 아니고 결과를 저장하지 않으면 버려진다.
+- 교정: `sorted(freq, key=freq.get, reverse=True)[:k]`로 빈도 내림차순 키 목록에서 K개를 선택한다.
+- 재확인: 2026-11-15 수정한 전체 코드와 정렬 비용을 독립 확인한다.
+
 <a id="mistake-21"></a>
 
 ## 21. 누적 정답을 현재 구간 길이처럼 변경함
